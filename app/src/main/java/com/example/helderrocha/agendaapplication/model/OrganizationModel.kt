@@ -6,7 +6,7 @@ data class OrganizationModel(
         var email: String,
         var cnpj: String,
         var description: String,
-        var logo: Long,
+        var logo: Logo,
         var updatedAt: String,
         var ranking: Int,
         var website: String,
