@@ -15,87 +15,35 @@ import com.example.helderrocha.agendaapplication.view_model.ViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
+import com.ogaclejapan.smarttablayout.SmartTabLayout
+import android.support.v4.view.ViewPager
+import com.example.helderrocha.agendaapplication.view.ContactsListFragment
+import com.example.helderrocha.agendaapplication.view.OrganizationsListFragment
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems
+import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItemAdapter
+
+
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    lateinit var itemsVMFactory: ViewModelFactory<OrganizationListViewModel>
-
-    private val itemsViewModel by lazy {
-        ViewModelProviders.of(this, itemsVMFactory)[OrganizationListViewModel::class.java]
-    }
-
-    protected val ItemsObserver = Observer<List<OrganizationModel>>(::onItemsFetched)
-    private lateinit var adapter: OrganizationAdapter
-
-    var layoutManager = LinearLayoutManager(this)
-
-
-    var totalItemCount: Int = 0
-    var visibleItemCount: Int = 0
-    var pastVisibleItemCount: Int = 0
-    var loading: Boolean = false
-    var page: Int = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val adapter = FragmentPagerItemAdapter(
+                supportFragmentManager, FragmentPagerItems.with(this)
+                .add("Empresas", OrganizationsListFragment::class.java)
+                .add("Contatos", ContactsListFragment::class.java)
+                .create())
 
-        recyclerView.layoutManager = layoutManager
-        recyclerView.setHasFixedSize(true)
+        val viewPager =   findViewById<View>(R.id.viewPager) as ViewPager
+        viewPager.adapter = adapter
 
-        itemsViewModel.data.observe(this, ItemsObserver)
-        itemsViewModel.getOrganizatons(page)
-    }
-
-    private fun onItemsFetched(organizationListFetched: List<OrganizationModel>?) {
-        if (organizationListFetched != null) {
-//            loading = true
-            setUpdateAdapter(organizationListFetched)
-        } else {
-            Toast.makeText(this, "There is no", Toast.LENGTH_SHORT).show()
-        }
+        val viewPagerTab = findViewById<View>(R.id.viewPagerTab) as SmartTabLayout
+        viewPagerTab.setViewPager(viewPager)
 
     }
 
-    private fun setUpdateAdapter(organizationList: List<OrganizationModel>){
-        adapter = OrganizationAdapter(organizationList, { item: OrganizationModel -> partItemClicked(item) } )
-        recyclerView.adapter = adapter
-        progressBar.visibility = View.GONE
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-
-            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
-                if(dy > 0) {
-                    visibleItemCount = layoutManager.childCount
-                    totalItemCount = layoutManager.itemCount
-                    var total = visibleItemCount+ pastVisibleItemCount
-                    pastVisibleItemCount =(recyclerView!!.layoutManager as LinearLayoutManager).findFirstVisibleItemPosition()
-                    if(loading){
-                        if((visibleItemCount+ pastVisibleItemCount) >= totalItemCount) {
-                            progressBar.visibility = View.VISIBLE
-                            loading = false
-                            page++
-                            itemsViewModel.getOrganizatons( page++)
-                        }
-                    }
-                }
-
-            }
-
-            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-                super.onScrollStateChanged(recyclerView, newState)
-            }
-        })
-    }
-    private fun partItemClicked(item : OrganizationModel) {
-//        val str1 = item.login.toLowerCase()
-//        val str3 = item.name.toLowerCase()
-//
-//        val intent = Intent(this,PullRequestActivity::class.java)
-//        intent.putExtra("name",str1)
-//        intent.putExtra("repo",str3)
-//        startActivity(intent)
-    }
 }
