@@ -2,7 +2,9 @@ package com.example.helderrocha.agendaapplication
 
 import android.content.Context
 import com.example.helderrocha.agendaapplication.api.NetworkModule
+import com.example.helderrocha.agendaapplication.view.ContactsListFragment
 import com.example.helderrocha.agendaapplication.view.OrganizationsListFragment
+import com.example.helderrocha.agendaapplication.view.PersonActivity
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
@@ -22,6 +24,8 @@ class AppModule
 abstract class AndroidInjectorsModule {
     @ContributesAndroidInjector
     abstract fun mainActivity(): MainActivity
+    @ContributesAndroidInjector
+    abstract fun personActivity(): PersonActivity
 
 
 
@@ -37,6 +41,8 @@ abstract class AndroidInjectorsModule {
 abstract class FragmentModule {
     @ContributesAndroidInjector
     internal abstract fun organizationsListFragment(): OrganizationsListFragment
+    @ContributesAndroidInjector
+    internal abstract fun contactsListFragment(): ContactsListFragment
 }
 
 @Singleton

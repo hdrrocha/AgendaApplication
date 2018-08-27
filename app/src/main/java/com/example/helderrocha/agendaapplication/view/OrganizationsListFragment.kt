@@ -47,9 +47,7 @@ class OrganizationsListFragment : Fragment() {
 
     protected val ItemsObserver = Observer<List<OrganizationModel>>(::onItemsFetched)
 
-
     private lateinit var adapter: OrganizationAdapter
-
 
     var layoutManager = LinearLayoutManager(context)
 
@@ -61,6 +59,7 @@ class OrganizationsListFragment : Fragment() {
 
     var recyclerViewF: RecyclerView? = null
     lateinit var progressBar: ProgressBar
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val view =  inflater.inflate(R.layout.organizations_list_fragment, container, false)
