@@ -21,8 +21,12 @@ class OrganizationListViewModel @Inject constructor(val api: ApiClient, private 
                 .observeOn(schedulers.mainThread())
                 .subscribe({
                     _data.value = it.data
+                    Log.i("HELDER ====>", it.data.get(1).name)
                 }, {
                     Log.i("ERROR", it.message)
                 })
     }
 }
+
+
+

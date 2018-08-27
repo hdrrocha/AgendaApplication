@@ -1,8 +1,10 @@
 package com.example.helderrocha.agendaapplication.view
 
 
+import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -10,6 +12,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.example.helderrocha.agendaapplication.OrganizationAdapter
 
@@ -17,7 +20,7 @@ import com.example.helderrocha.agendaapplication.R
 import com.example.helderrocha.agendaapplication.model.OrganizationModel
 import com.example.helderrocha.agendaapplication.view_model.OrganizationListViewModel
 import com.example.helderrocha.agendaapplication.view_model.ViewModelFactory
-import dagger.android.AndroidInjection
+import dagger.android.support.AndroidSupportInjection
 import kotlinx.android.synthetic.main.organizations_list_fragment.*
 import javax.inject.Inject
 
@@ -36,17 +39,19 @@ private const val ARG_PARAM2 = "param2"
 class OrganizationsListFragment : Fragment() {
 
     @Inject
-    lateinit var itemsVMFactory: ViewModelFactory<OrganizationListViewModel>
+    lateinit var organizationsVMFactory: ViewModelFactory<OrganizationListViewModel>
 
-    private val itemsViewModel by lazy {
-        ViewModelProviders.of(this, itemsVMFactory)[OrganizationListViewModel::class.java]
+    private val organizationsViewModel by lazy {
+        ViewModelProviders.of(this, organizationsVMFactory)[OrganizationListViewModel::class.java]
     }
 
     protected val ItemsObserver = Observer<List<OrganizationModel>>(::onItemsFetched)
+
+
     private lateinit var adapter: OrganizationAdapter
 
-    var layoutManager = LinearLayoutManager(context)
 
+    var layoutManager = LinearLayoutManager(context)
 
     var totalItemCount: Int = 0
     var visibleItemCount: Int = 0
@@ -55,29 +60,35 @@ class OrganizationsListFragment : Fragment() {
     var page: Int = 1
 
     var recyclerViewF: RecyclerView? = null
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
-        AndroidInjection.inject(activity)
-        // Inflate the layout for this fragment
+    lateinit var progressBar: ProgressBar
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+
         val view =  inflater.inflate(R.layout.organizations_list_fragment, container, false)
-        recyclerViewF = view.findViewById<RecyclerView>(R.id.recyclerView) as RecyclerView
-        recyclerViewF!!.layoutManager = layoutManager
 
-        recyclerViewF!!.setHasFixedSize(true)
 
-        itemsViewModel.data.observe(this, ItemsObserver)
-        itemsViewModel.getOrganizatons(page)
+        recyclerViewF = view.findViewById(R.id.recyclerView) as RecyclerView // Add this
+        recyclerViewF!!.layoutManager = LinearLayoutManager(activity)
+        progressBar = view.findViewById(R.id.progressBar)as ProgressBar
 
+
+        organizationsViewModel.data.observe(this, ItemsObserver)
+        organizationsViewModel.getOrganizatons(1)
         return  view
 
     }
-    private fun onItemsFetched(organizationListFetched: List<OrganizationModel>?) =
-            if (organizationListFetched != null) {
-    //            loading = true
-                setUpdateAdapter(organizationListFetched)
-            } else {
-                Toast.makeText(this.context, "There is no", Toast.LENGTH_SHORT).show()
-            }
+
+    private fun onItemsFetched(list: List<OrganizationModel>?) {
+        if (list != null) {
+            setUpdateAdapter(list)
+        }
+
+
+    }
+
+    override fun onAttach(context: Context) {
+        AndroidSupportInjection.inject(this)
+        super.onAttach(context)
+    }
 
     private fun setUpdateAdapter(organizationList: List<OrganizationModel>){
         adapter = OrganizationAdapter(organizationList, { item: OrganizationModel -> partItemClicked(item) } )
@@ -97,7 +108,7 @@ class OrganizationsListFragment : Fragment() {
                             progressBar.visibility = View.VISIBLE
                             loading = false
                             page++
-                            itemsViewModel.getOrganizatons( page++)
+                            organizationsViewModel.getOrganizatons( page++)
                         }
                     }
                 }
@@ -110,13 +121,7 @@ class OrganizationsListFragment : Fragment() {
         })
     }
     private fun partItemClicked(item : OrganizationModel) {
-//        val str1 = item.login.toLowerCase()
-//        val str3 = item.name.toLowerCase()
-//
-//        val intent = Intent(this,PullRequestActivity::class.java)
-//        intent.putExtra("name",str1)
-//        intent.putExtra("repo",str3)
-//        startActivity(intent)
+
     }
 
 }
