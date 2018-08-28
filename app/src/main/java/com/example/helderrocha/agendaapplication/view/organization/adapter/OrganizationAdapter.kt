@@ -1,4 +1,4 @@
-package com.example.helderrocha.agendaapplication
+package com.example.helderrocha.agendaapplication.view.organization.adapter
 
 
 import android.support.v7.widget.RecyclerView
@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.example.helderrocha.agendaapplication.R
 import com.example.helderrocha.agendaapplication.model.OrganizationModel
 import kotlinx.android.synthetic.main.organization_list_item.view.*
 

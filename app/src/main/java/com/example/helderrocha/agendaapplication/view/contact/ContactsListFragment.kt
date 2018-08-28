@@ -1,4 +1,4 @@
-package com.example.helderrocha.agendaapplication.view
+package com.example.helderrocha.agendaapplication.view.contact
 
 
 import android.arch.lifecycle.Observer
@@ -13,7 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
-import com.example.helderrocha.agendaapplication.PersonAdapter
+import com.example.helderrocha.agendaapplication.view.contact.adapter.PersonAdapter
 
 import com.example.helderrocha.agendaapplication.R
 import com.example.helderrocha.agendaapplication.model.PersonModel
@@ -82,7 +82,7 @@ class ContactsListFragment : Fragment() {
     }
 
     private fun setUpdateAdapter(organizationList: List<PersonModel>){
-        adapter = PersonAdapter(organizationList, { item: PersonModel -> partItemClicked(item) } )
+        adapter = PersonAdapter(organizationList, { item: PersonModel -> partItemClicked(item) })
         recyclerViewF!!.adapter = adapter
         progressBar.visibility = View.GONE
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
@@ -112,7 +112,7 @@ class ContactsListFragment : Fragment() {
         })
     }
     private fun partItemClicked(item: PersonModel) {
-        val intent = Intent(this.context,PersonActivity::class.java)
+        val intent = Intent(this.context, PersonActivity::class.java)
         var idUser = item.id.toString()
         intent.putExtra("id", idUser)
         startActivity(intent)

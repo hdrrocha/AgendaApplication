@@ -1,4 +1,4 @@
-package com.example.helderrocha.agendaapplication.view
+package com.example.helderrocha.agendaapplication.view.contact
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -11,7 +11,6 @@ import com.example.helderrocha.agendaapplication.model.*
 import com.example.helderrocha.agendaapplication.view_model.PersonViewModel
 import com.example.helderrocha.agendaapplication.view_model.ViewModelFactory
 import dagger.android.AndroidInjection
-import kotlinx.android.synthetic.main.organization_activity.*
 import kotlinx.android.synthetic.main.person_activity.*
 import javax.inject.Inject
 

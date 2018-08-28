@@ -1,9 +1,10 @@
-package com.example.helderrocha.agendaapplication.view
+package com.example.helderrocha.agendaapplication.view.organization
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import com.bumptech.glide.Glide
 import com.example.helderrocha.agendaapplication.R
 import com.example.helderrocha.agendaapplication.model.OrganizationModel
@@ -11,7 +12,6 @@ import com.example.helderrocha.agendaapplication.view_model.OrganizationViewMode
 import com.example.helderrocha.agendaapplication.view_model.ViewModelFactory
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.organization_activity.*
-import kotlinx.android.synthetic.main.person_activity.*
 import javax.inject.Inject
 
 class OrganizationActivity : AppCompatActivity() {
@@ -37,6 +37,10 @@ class OrganizationActivity : AppCompatActivity() {
             organizationsViewModel.data.observe(this, ItemsObserver)
             organizationsViewModel.getOrganizationId(idOrganization)
         }
+        backButtonOrganization.setOnClickListener(View.OnClickListener {
+            finish()
+        })
+
     }
 
     private fun onItemsFetched(organization: OrganizationModel?) {
@@ -56,5 +60,10 @@ class OrganizationActivity : AppCompatActivity() {
                     .into(organization_image)
 
         }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        finish()
     }
 }

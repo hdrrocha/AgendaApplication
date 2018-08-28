@@ -2,10 +2,11 @@ package com.example.helderrocha.agendaapplication
 
 import android.content.Context
 import com.example.helderrocha.agendaapplication.api.NetworkModule
-import com.example.helderrocha.agendaapplication.view.ContactsListFragment
-import com.example.helderrocha.agendaapplication.view.OrganizationActivity
-import com.example.helderrocha.agendaapplication.view.OrganizationsListFragment
-import com.example.helderrocha.agendaapplication.view.PersonActivity
+import com.example.helderrocha.agendaapplication.view.*
+import com.example.helderrocha.agendaapplication.view.contact.ContactsListFragment
+import com.example.helderrocha.agendaapplication.view.contact.PersonActivity
+import com.example.helderrocha.agendaapplication.view.organization.OrganizationActivity
+import com.example.helderrocha.agendaapplication.view.organization.OrganizationsListFragment
 import dagger.BindsInstance
 import dagger.Component
 import dagger.Module
