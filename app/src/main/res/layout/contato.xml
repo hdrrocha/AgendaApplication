@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="368dp"
+        android:layout_height="200dp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="51dp"
+        tools:ignore="MissingConstraints">
+
+      <android.support.constraint.ConstraintLayout
+          android:layout_width="match_parent"
+          android:layout_height="match_parent">
+
+          <ImageView
+              android:id="@+id/imageInformacoes"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="8dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="8dp"
+              android:src="@drawable/phone"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toTopOf="parent" />
+
+          <TextView
+              android:id="@+id/texTitleContato"
+              android:layout_width="320dp"
+              android:layout_height="wrap_content"
+              android:text="Contato"
+              tools:layout_editor_absoluteX="40dp"
+              tools:layout_editor_absoluteY="8dp" />
+
+          <TextView
+              android:id="@+id/textTitleDescicao"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="8dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="8dp"
+              android:text="Email"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/imageInformacoes" />
+
+          <TextView
+              android:id="@+id/textNome"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="email@email.com"
+              tools:layout_editor_absoluteX="8dp"
+              tools:layout_editor_absoluteY="67dp" />
+
+          <TextView
+              android:id="@+id/textTitleCpf"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="8dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="8dp"
+              android:text="Telefone"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textNome" />
+
+          <TextView
+              android:id="@+id/textCpf"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="8dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="8dp"
+              android:text="telefone"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textTitleCpf" />
+
+          <TextView
+              android:id="@+id/textTitleAniversario"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginLeft="8dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="8dp"
+              android:text="Celular"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textCpf" />
+
+          <TextView
+              android:id="@+id/textCelular"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_marginBottom="8dp"
+              android:layout_marginLeft="8dp"
+              android:layout_marginStart="8dp"
+              android:layout_marginTop="8dp"
+              android:text="celular"
+              app:layout_constraintBottom_toBottomOf="parent"
+              app:layout_constraintStart_toStartOf="parent"
+              app:layout_constraintTop_toBottomOf="@+id/textTitleAniversario" />
+      </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

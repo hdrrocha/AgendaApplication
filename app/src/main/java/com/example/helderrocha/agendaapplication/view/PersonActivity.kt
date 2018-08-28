@@ -43,9 +43,12 @@ class PersonActivity : AppCompatActivity() {
             textOrganizationTitle.text = person.organization.name
             textEmail.text =  person.name
             textTelefone.text = person.cpf.toString()
-            textAniversario.text = person.birthday.toString()
-            textEntereco.text = "rua ${person.address.streetName}, ${person.address.streetNumber}, ${person.address.postalCode},  ${person.address.district},  ${person.address.city},  ${person.address.state},  ${person.address.country}"
-            textCategory.text = person.category.name
+            textAniversaio.text = person.birthday.toString()
+            textEndereco.text = "rua ${person.address.streetName}, ${person.address.streetNumber}, ${person.address.postalCode},  ${person.address.district},  ${person.address.city},  ${person.address.state},  ${person.address.country}"
+            textCategoria.text = person.category.name
+            textEmail.text = person.email
+            textTelefone.text = person.contact.work
+            textCelular.text = person.contact.whatsapp
             Glide.with(this)
                     .load(person.avatar)
                     .into(profile_image)
