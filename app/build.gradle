@@ -84,4 +84,7 @@ dependencies {
     //Tab
     compile 'com.ogaclejapan.smarttablayout:library:1.6.1@aar'
     compile 'com.ogaclejapan.smarttablayout:utils-v4:1.6.1@aar'
+
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
+
 }

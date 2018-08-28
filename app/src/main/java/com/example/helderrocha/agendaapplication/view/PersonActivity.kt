@@ -4,13 +4,13 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import com.bumptech.glide.Glide
 import com.example.helderrocha.agendaapplication.R
-import com.example.helderrocha.agendaapplication.model.PersonModel
-import com.example.helderrocha.agendaapplication.view_model.PeopleListViewModel
+import com.example.helderrocha.agendaapplication.model.*
 import com.example.helderrocha.agendaapplication.view_model.PersonViewModel
 import com.example.helderrocha.agendaapplication.view_model.ViewModelFactory
 import dagger.android.AndroidInjection
+import kotlinx.android.synthetic.main.person_activity.*
 import javax.inject.Inject
 
 class PersonActivity : AppCompatActivity() {
@@ -38,7 +38,18 @@ class PersonActivity : AppCompatActivity() {
 
     private fun onItemsFetched(person: PersonModel?) {
         if (person != null) {
-           Log.i("Nome", person.name)
+            textViewNameTitle.text = person.name
+            textRoleTitle.text = person.role
+            textOrganizationTitle.text = person.organization.name
+            textEmail.text =  person.name
+            textTelefone.text = person.cpf.toString()
+            textAniversario.text = person.birthday.toString()
+            textEntereco.text = "rua ${person.address.streetName}, ${person.address.streetNumber}, ${person.address.postalCode},  ${person.address.district},  ${person.address.city},  ${person.address.state},  ${person.address.country}"
+            textCategory.text = person.category.name
+            Glide.with(this)
+                    .load(person.avatar)
+                    .into(profile_image)
+
         }
     }
 }
