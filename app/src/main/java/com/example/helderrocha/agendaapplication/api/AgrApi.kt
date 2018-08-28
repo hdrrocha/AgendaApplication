@@ -15,16 +15,14 @@ interface AgrApi {
     }
 
     @Headers("Authorization: Token 19c7fe22-741d-4b75-b091-52f64c9355ed")
-    @GET("organizations?&per_page=9" )
+    @GET("organizations?&per_page=20" )
     fun organizations(
             @Query("page") page: Int
 
     ): Single<OrganizationList>
 
-
-
     @Headers("Authorization: Token 19c7fe22-741d-4b75-b091-52f64c9355ed")
-    @GET("people?&per_page=9" )
+    @GET("people?&per_page=20" )
     fun people(
             @Query("page") page: Int
 
@@ -43,9 +41,5 @@ interface AgrApi {
             @Path("id") id: Int
 
     ): Single<OrganizationObject>
-
-//    @Headers("Authorization: Token 19c7fe22-741d-4b75-b091-52f64c9355ed")
-//    @GET("organizations" )
-//    fun organizations(): Single<OrganizationList>
 
 }

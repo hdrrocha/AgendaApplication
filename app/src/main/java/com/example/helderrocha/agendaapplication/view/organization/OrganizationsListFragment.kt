@@ -47,7 +47,7 @@ class OrganizationsListFragment : Fragment() {
     protected val ItemsObserver = Observer<List<OrganizationModel>>(::onItemsFetched)
 
     private lateinit var adapter: OrganizationAdapter
-
+    var listCompany: MutableList<OrganizationModel> = mutableListOf()
     var layoutManager = LinearLayoutManager(context)
 
     var totalItemCount: Int = 0
@@ -66,7 +66,7 @@ class OrganizationsListFragment : Fragment() {
 
         recyclerViewF = view.findViewById(R.id.recyclerView) as RecyclerView // Add this
         recyclerViewF!!.layoutManager = LinearLayoutManager(activity)
-        progressBar = view.findViewById(R.id.progressBar)as ProgressBar
+        progressBar = view.findViewById(R.id.progressBarCompany)as ProgressBar
 
 
         organizationsViewModel.data.observe(this, ItemsObserver)
@@ -89,8 +89,14 @@ class OrganizationsListFragment : Fragment() {
     }
 
     private fun setUpdateAdapter(organizationList: List<OrganizationModel>){
-        adapter = OrganizationAdapter(organizationList, { item: OrganizationModel -> partItemClicked(item) })
+        if(listCompany.size == 0){
+            listCompany = organizationList as MutableList<OrganizationModel>
+        }else{
+            listCompany.addAll(organizationList)
+        }
+        adapter = OrganizationAdapter(listCompany, { item: OrganizationModel -> partItemClicked(item) })
         recyclerViewF!!.adapter = adapter
+
         progressBar.visibility = View.GONE
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 

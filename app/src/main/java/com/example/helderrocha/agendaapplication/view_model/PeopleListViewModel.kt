@@ -23,7 +23,6 @@ class PeopleListViewModel @Inject constructor(val api: ApiClient, private val sc
                 .observeOn(schedulers.mainThread())
                 .subscribe({
                     _data.value = it.data
-                    Log.i("HELDER ====>", it.data.get(1).name)
                 }, {
                     Log.i("ERROR", it.message)
                 })

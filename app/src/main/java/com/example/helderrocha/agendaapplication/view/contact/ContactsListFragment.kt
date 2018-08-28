@@ -35,10 +35,10 @@ private const val ARG_PARAM2 = "param2"
 class ContactsListFragment : Fragment() {
 
     @Inject
-    lateinit var organizationsVMFactory: ViewModelFactory<PeopleListViewModel>
+    lateinit var peopleVMFactory: ViewModelFactory<PeopleListViewModel>
 
-    private val organizationsViewModel by lazy {
-        ViewModelProviders.of(this, organizationsVMFactory)[PeopleListViewModel::class.java]
+    private val peopleViewModel by lazy {
+        ViewModelProviders.of(this, peopleVMFactory)[PeopleListViewModel::class.java]
     }
 
     protected val ItemsObserver = Observer<List<PersonModel>>(::onItemsFetched)
@@ -61,11 +61,11 @@ class ContactsListFragment : Fragment() {
 
         recyclerViewF = view.findViewById(R.id.recyclerView) as RecyclerView // Add this
         recyclerViewF!!.layoutManager = LinearLayoutManager(activity)
-        progressBar = view.findViewById(R.id.progressBar)as ProgressBar
+        progressBar = view.findViewById(R.id.progressBarContacts)as ProgressBar
 
 
-        organizationsViewModel.data.observe(this, ItemsObserver)
-        organizationsViewModel.getPeople(1)
+        peopleViewModel.data.observe(this, ItemsObserver)
+        peopleViewModel.getPeople(1)
         return  view
     }
 
@@ -99,7 +99,7 @@ class ContactsListFragment : Fragment() {
                             progressBar.visibility = View.VISIBLE
                             loading = false
                             page++
-//                            organizationsViewModel.getOrganizatons( page++)
+                            peopleViewModel.getPeople( page++)
                         }
                     }
                 }

@@ -15,13 +15,11 @@ class OrganizationListViewModel @Inject constructor(val api: ApiClient, private 
     val data: LiveData<List<OrganizationModel>> = _data
 
     fun getOrganizatons(page: Int) {
-
         api.organizations(page)
                 .subscribeOn(schedulers.io())
                 .observeOn(schedulers.mainThread())
                 .subscribe({
                     _data.value = it.data
-                    Log.i("HELDER ====>", it.data.get(1).name)
                 }, {
                     Log.i("ERROR", it.message)
                 })

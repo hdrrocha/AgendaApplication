@@ -9,13 +9,6 @@ import io.reactivex.Single
 import javax.inject.Inject
 
 class ApiClient @Inject constructor(private val gitApi: AgrApi) {
-//    fun repositoriesscroll(page: String): Observable<RepositoryResponse> {
-//        return gitApi.repositoriesscroll(page)
-//    }
-//
-//    fun pullRequest(name: String, repositorio: String): Observable<List<PullRequest>> {
-//        return gitApi.pullRequest(name, repositorio)
-//    }
 
     fun organizations(page: Int):Single<OrganizationList> {
         return gitApi.organizations(page)

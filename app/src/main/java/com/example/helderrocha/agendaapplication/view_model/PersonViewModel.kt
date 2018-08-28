@@ -21,7 +21,6 @@ class PersonViewModel @Inject constructor(val api: ApiClient, private val schedu
                 .observeOn(schedulers.mainThread())
                 .subscribe({
                     _data.value = it.data
-//                    Log.i("HELDER ====>", it.name)
                 }, {
                     Log.i("ERROR", it.message)
                 })
