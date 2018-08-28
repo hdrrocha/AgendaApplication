@@ -5,6 +5,7 @@ import android.app.Activity
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
@@ -120,7 +121,10 @@ class OrganizationsListFragment : Fragment() {
         })
     }
     private fun partItemClicked(item : OrganizationModel) {
-
+        val intent = Intent(this.context,OrganizationActivity::class.java)
+        var idOrganization = item.id.toString()
+        intent.putExtra("id", idOrganization)
+        startActivity(intent)
     }
 
 }

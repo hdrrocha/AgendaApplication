@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="colorPrimaryBlank">#ffffff</color>
     <color name="colorSecundaryBlank">#5fb6f9</color>
+    <color name="colorTransparentColor">#80000000</color>
 </resources>

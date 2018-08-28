@@ -3,6 +3,7 @@ package com.example.helderrocha.agendaapplication
 import android.content.Context
 import com.example.helderrocha.agendaapplication.api.NetworkModule
 import com.example.helderrocha.agendaapplication.view.ContactsListFragment
+import com.example.helderrocha.agendaapplication.view.OrganizationActivity
 import com.example.helderrocha.agendaapplication.view.OrganizationsListFragment
 import com.example.helderrocha.agendaapplication.view.PersonActivity
 import dagger.BindsInstance
@@ -26,6 +27,8 @@ abstract class AndroidInjectorsModule {
     abstract fun mainActivity(): MainActivity
     @ContributesAndroidInjector
     abstract fun personActivity(): PersonActivity
+    @ContributesAndroidInjector
+    abstract fun organizationActivity(): OrganizationActivity
 
 
 

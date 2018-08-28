@@ -15,7 +15,7 @@ class OrganizationAdapter (var organizationModel: List<OrganizationModel>, val c
 
         fun bind(item: OrganizationModel, clickListener: (OrganizationModel) -> Unit) {
             itemView.textViewOrganization.text = item.name
-//            itemView.setOnClickListener { clickListener(item)}
+            itemView.setOnClickListener { clickListener(item)}
             Glide.with(itemView)
                     .load(item.logo.thumb)
                     .into(itemView.imageViewOrganization)

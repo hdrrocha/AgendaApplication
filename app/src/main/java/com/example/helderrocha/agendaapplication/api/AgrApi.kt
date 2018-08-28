@@ -1,10 +1,7 @@
 package com.example.helderrocha.agendaapplication.api
 
 
-import com.example.helderrocha.agendaapplication.model.OrganizationList
-import com.example.helderrocha.agendaapplication.model.PeopleList
-import com.example.helderrocha.agendaapplication.model.PersonModel
-import com.example.helderrocha.agendaapplication.model.PersonObject
+import com.example.helderrocha.agendaapplication.model.*
 import io.reactivex.Observable
 import io.reactivex.Single
 import retrofit2.http.GET
@@ -39,6 +36,13 @@ interface AgrApi {
             @Path("id") id: Int
 
     ): Single<PersonObject>
+
+    @Headers("Authorization: Token 19c7fe22-741d-4b75-b091-52f64c9355ed")
+    @GET("organizations/{id}" )
+    fun organizationId(
+            @Path("id") id: Int
+
+    ): Single<OrganizationObject>
 
 //    @Headers("Authorization: Token 19c7fe22-741d-4b75-b091-52f64c9355ed")
 //    @GET("organizations" )
