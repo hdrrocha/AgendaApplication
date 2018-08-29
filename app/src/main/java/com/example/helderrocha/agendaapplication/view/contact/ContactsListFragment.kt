@@ -44,7 +44,7 @@ class ContactsListFragment : Fragment() {
     protected val ItemsObserver = Observer<List<PersonModel>>(::onItemsFetched)
 
     private lateinit var adapter: PersonAdapter
-
+    var listPeople: MutableList<PersonModel> = mutableListOf()
     var layoutManager = LinearLayoutManager(context)
 
     var totalItemCount: Int = 0
@@ -59,8 +59,9 @@ class ContactsListFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.contacts_fragment_list, container, false)
 
-        recyclerViewF = view.findViewById(R.id.recyclerView) as RecyclerView // Add this
+        recyclerViewF = view.findViewById(R.id.recyclerView) as RecyclerView
         recyclerViewF!!.layoutManager = LinearLayoutManager(activity)
+        recyclerViewF!!.setHasFixedSize(true)
         progressBar = view.findViewById(R.id.progressBarContacts)as ProgressBar
 
 
@@ -72,6 +73,7 @@ class ContactsListFragment : Fragment() {
 
     private fun onItemsFetched(list: List<PersonModel>?) {
         if (list != null) {
+            loading = true
             setUpdateAdapter(list)
         }
     }
@@ -81,10 +83,22 @@ class ContactsListFragment : Fragment() {
         super.onAttach(context)
     }
 
-    private fun setUpdateAdapter(organizationList: List<PersonModel>){
-        adapter = PersonAdapter(organizationList, { item: PersonModel -> partItemClicked(item) })
-        recyclerViewF!!.adapter = adapter
-        progressBar.visibility = View.GONE
+    private fun setUpdateAdapter(peopleList: List<PersonModel>){
+        if(peopleList.size > 0) {
+            listPeople = peopleList  as MutableList<PersonModel>
+            adapter = PersonAdapter(listPeople, { item: PersonModel -> partItemClicked(item) })
+            recyclerViewF!!.adapter = adapter
+            progressBar.visibility = View.GONE
+        }else{
+            listPeople.addAll(peopleList)
+            var currentPosition =(recyclerViewF!!.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
+            listPeople.addAll(peopleList)
+            adapter.notifyDataSetChanged()
+            recyclerViewF!!.adapter!!.notifyDataSetChanged()
+            recyclerViewF!!.scrollToPosition(currentPosition)
+            progressBar.visibility = View.GONE
+        }
+
         recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
 

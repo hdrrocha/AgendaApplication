@@ -20,6 +20,7 @@ import com.example.helderrocha.agendaapplication.model.OrganizationModel
 import com.example.helderrocha.agendaapplication.view_model.OrganizationListViewModel
 import com.example.helderrocha.agendaapplication.view_model.ViewModelFactory
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.contacts_fragment_list.*
 import kotlinx.android.synthetic.main.organizations_list_fragment.*
 import javax.inject.Inject
 
@@ -65,7 +66,8 @@ class OrganizationsListFragment : Fragment() {
 
 
         recyclerViewF = view.findViewById(R.id.recyclerView) as RecyclerView // Add this
-        recyclerViewF!!.layoutManager = LinearLayoutManager(activity)
+        recyclerViewF!!.layoutManager = LinearLayoutManager(activity) as RecyclerView.LayoutManager?
+        recyclerViewF!!.setHasFixedSize(true)
         progressBar = view.findViewById(R.id.progressBarCompany)as ProgressBar
 
 
@@ -77,6 +79,7 @@ class OrganizationsListFragment : Fragment() {
 
     private fun onItemsFetched(list: List<OrganizationModel>?) {
         if (list != null) {
+            loading = true
             setUpdateAdapter(list)
         }
 
@@ -91,14 +94,22 @@ class OrganizationsListFragment : Fragment() {
     private fun setUpdateAdapter(organizationList: List<OrganizationModel>){
         if(listCompany.size == 0){
             listCompany = organizationList as MutableList<OrganizationModel>
+            adapter = OrganizationAdapter(listCompany, { item: OrganizationModel -> partItemClicked(item) })
+            recyclerViewF!!.adapter = adapter
+            progressBar.visibility = View.GONE
         }else{
+            var currentPosition =(recyclerViewF!!.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
             listCompany.addAll(organizationList)
+            adapter.notifyDataSetChanged()
+            recyclerViewF!!.adapter!!.notifyDataSetChanged()
+            recyclerViewF!!.scrollToPosition(currentPosition)
+            progressBar.visibility = View.GONE
         }
-        adapter = OrganizationAdapter(listCompany, { item: OrganizationModel -> partItemClicked(item) })
-        recyclerViewF!!.adapter = adapter
 
-        progressBar.visibility = View.GONE
-        recyclerView.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+
+
+
+        recyclerViewF!!.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
 
             override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
