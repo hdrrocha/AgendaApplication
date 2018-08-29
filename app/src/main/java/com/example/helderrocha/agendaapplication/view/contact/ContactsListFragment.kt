@@ -93,7 +93,6 @@ class ContactsListFragment : Fragment() {
             listPeople.addAll(peopleList)
             var currentPosition =(recyclerViewF!!.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
             listPeople.addAll(peopleList)
-            adapter.notifyDataSetChanged()
             recyclerViewF!!.adapter!!.notifyDataSetChanged()
             recyclerViewF!!.scrollToPosition(currentPosition)
             progressBar.visibility = View.GONE

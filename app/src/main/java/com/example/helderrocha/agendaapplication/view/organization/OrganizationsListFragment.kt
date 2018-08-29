@@ -100,7 +100,6 @@ class OrganizationsListFragment : Fragment() {
         }else{
             var currentPosition =(recyclerViewF!!.layoutManager as LinearLayoutManager).findLastVisibleItemPosition()
             listCompany.addAll(organizationList)
-            adapter.notifyDataSetChanged()
             recyclerViewF!!.adapter!!.notifyDataSetChanged()
             recyclerViewF!!.scrollToPosition(currentPosition)
             progressBar.visibility = View.GONE
